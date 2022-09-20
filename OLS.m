@@ -7,6 +7,7 @@ function [phi,Y,param,cova]= OLS(data,na,nb,nk)
 % -phi: matrix with the autoregressive model in each time.
 % -Y: measured observations from t = na + nk -1 to t= N
 % - param: vector with the estimation of the parameters
+% Not mine
 
 y = data(:,3);
 u = data(:,2);
