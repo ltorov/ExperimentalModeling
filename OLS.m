@@ -2,13 +2,12 @@ function [phi,Y,param,cova]= OLS(data,na,nb,nk)
 % Function for Least Squares
 % Arguments:
 % - data: matrix as [t,u,y].
-% - nk: delay of the system. nk= d+1
+% - nk: delay of the system. nk= d+1t = linspace(0,1,7);
 % output:
 % -phi: matrix with the autoregressive model in each time.
 % -Y: measured observations from t = na + nk -1 to t= N
 % - param: vector with the estimation of the parameters
 % Not mine
-
 y = data(:,3);
 u = data(:,2);
 N = length(data);
@@ -30,8 +29,8 @@ for i = 1:size_
     count_aux= count_aux+1;
 end
 Y = data((Q+1):end,1);
-param= (phi'*phi)\(phi')*Y;
-V= 0.5*(Y'*Y-Y'*phi*(phi'*phi)\phi'*Y);
+param= inv(phi'*phi)*(phi')*Y;
+V= 0.5*(Y'*Y-Y'*phi*inv(phi'*phi)*phi'*Y);
 lambda= 2*V/(N-nk-na-nb);
 cova= lambda*inv(phi'*phi);
 end
